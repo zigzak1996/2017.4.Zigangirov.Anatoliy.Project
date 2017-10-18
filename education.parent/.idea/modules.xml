@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/education.controller/education.controller.iml" filepath="$PROJECT_DIR$/.idea/modules/education.controller/education.controller.iml" group="education.controller" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/education.controller/education.controller_main.iml" filepath="$PROJECT_DIR$/.idea/modules/education.controller/education.controller_main.iml" group="education.controller" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/education.controller/education.controller_test.iml" filepath="$PROJECT_DIR$/.idea/modules/education.controller/education.controller_test.iml" group="education.controller" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/education.parent.iml" filepath="$PROJECT_DIR$/.idea/modules/education.parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/education.parent.iml" filepath="$PROJECT_DIR$/education.parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/education.parent_main.iml" filepath="$PROJECT_DIR$/.idea/modules/education.parent_main.iml" group="education.parent" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/education.parent_test.iml" filepath="$PROJECT_DIR$/.idea/modules/education.parent_test.iml" group="education.parent" />
