@@ -49,12 +49,13 @@ public class ClientRegisterStandImpl implements ClientRegister {
         String telephone = obj.getString("telephone");
         String email = obj.getString("email");
         String address = obj.getString("address");
+        String password = obj.getString("password");
 
         System.out.print(id);
         if(id.length()==0) {
             Random random =new Random();
             long a=random.nextLong();
-            db.get().clientStorage.put(""+a,new ClientDot(""+a,name,surname,birthDate,telephone,email,address));
+            db.get().clientStorage.put(""+a,new ClientDot(""+a,name,surname,birthDate,telephone,email,address,"2",password));
             return "Ok insert";
         }
         else{

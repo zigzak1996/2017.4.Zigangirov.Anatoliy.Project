@@ -8,7 +8,9 @@ public class ClientDot {
     public String telephone;
     public String email;
     public String address;
-    public ClientDot(String id,String name,String surname,String birthDate,String telephone,String email,String address){
+    public String password;
+    public String type_id;
+    public ClientDot(String id,String name,String surname,String birthDate,String telephone,String email,String address,String type_id,String password){
         this.id = id;
         this.birthDate = birthDate;
         this.name = name;
@@ -16,6 +18,8 @@ public class ClientDot {
         this.telephone = telephone;
         this.email = email;
         this.address = address;
+        this.type_id = type_id;
+        this.password = password;
     }
 
     public String getId() {
@@ -52,6 +56,22 @@ public class ClientDot {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getType_id() {
+        return type_id;
+    }
+
+    public void setType_id(String type_id) {
+        this.type_id = type_id;
     }
 
     public String getAddress() {

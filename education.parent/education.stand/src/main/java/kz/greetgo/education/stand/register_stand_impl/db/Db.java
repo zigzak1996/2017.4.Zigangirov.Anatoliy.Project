@@ -19,7 +19,7 @@ public class Db implements HasAfterInject{
   }
 
   private void prepareData() {
-    clientStorage.put("1",new ClientDot("1","Anatoliy","Zigangirov","02/04/1996","+77781669223","zig.zak.1996@gmail.com","SDU"));
-    clientStorage.put("2",new ClientDot("2","Kamalkhan","Artykbayev","19/10/1996","+77777777777","kamalkhan.sdu@gmail.com","SDU"));
+    clientStorage.put("1",new ClientDot("1","Anatoliy","Zigangirov","02/04/1996","+77781669223","zig.zak.1996@gmail.com","SDU","1","zaraza123"));
+    clientStorage.put("2",new ClientDot("2","Kamalkhan","Artykbayev","19/10/1996","+77777777777","kamalkhan.sdu@gmail.com","SDU","2","qwerty123"));
   }
 }
