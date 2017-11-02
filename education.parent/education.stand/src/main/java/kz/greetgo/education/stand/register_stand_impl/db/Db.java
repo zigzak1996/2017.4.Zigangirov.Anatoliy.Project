@@ -13,6 +13,8 @@ import java.util.Map;
 @Bean
 public class Db implements HasAfterInject{
   public final Map<String, ClientDot> clientStorage = new HashMap<>();
+  public final Map<Long,String> linkStorage = new HashMap<>();
+
   @Override
   public void afterInject() throws Exception {
     prepareData();

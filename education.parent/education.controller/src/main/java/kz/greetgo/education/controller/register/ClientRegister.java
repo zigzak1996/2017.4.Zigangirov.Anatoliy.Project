@@ -9,4 +9,5 @@ public interface ClientRegister {
     List<ClientInfo> getClientList();
     String getClientDelete(String json);
     String getClientAdd(String json);
+    String acceptUser(String genNumber);
 }

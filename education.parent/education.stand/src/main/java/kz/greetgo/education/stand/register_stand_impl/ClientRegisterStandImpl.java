@@ -7,16 +7,20 @@ import kz.greetgo.education.controller.model.ClientInfo;
 import kz.greetgo.education.controller.register.ClientRegister;
 import kz.greetgo.education.stand.register_stand_impl.db.Db;
 import kz.greetgo.education.stand.register_stand_impl.model.ClientDot;
+import kz.greetgo.email.Email;
+import kz.greetgo.email.EmailSender;
+import kz.greetgo.email.EmailSenderController;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @Bean
 public class ClientRegisterStandImpl implements ClientRegister {
     public BeanGetter<Db> db;
+
+    public BeanGetter<EmailSender> emailSenderBeanGetter;
+
+    public BeanGetter<EmailSenderController> emailSenderControllerBeanGetter;
 
     @Override
     public List<ClientInfo> getClientList() {
@@ -52,22 +56,67 @@ public class ClientRegisterStandImpl implements ClientRegister {
         String password = obj.getString("password");
 
         System.out.print(id);
-        if(id.length()==0) {
-            Random random =new Random();
-            long a=random.nextLong();
-            db.get().clientStorage.put(""+a,new ClientDot(""+a,name,surname,birthDate,telephone,email,address,"2",password));
-            return "Ok insert";
+        for (String myId : db.get().clientStorage.keySet()) {
+            ClientDot cl = db.get().clientStorage.get(myId);
+            if(cl.email.equals(email) && cl.email.equals(telephone)){
+                return "Not saved";
+            }
         }
-        else{
-            ClientDot ci = db.get().clientStorage.get(id);
-            ci.setAddress(address);
-            ci.setEmail(email);
-            ci.setTelephone(telephone);
-            ci.setBirthDate(birthDate);
-            ci.setName(name);
-            ci.setSurname(surname);
-            db.get().clientStorage.put(id,ci);
-            return "Ok update";
+        if (id.length() == 0) {
+            Random ran = new Random();
+            int a = ran.nextInt();
+            id = a + "";
+            ClientDot x = new ClientDot(id, name, surname, birthDate, telephone, email, address, "2",password);
+            db.get().clientStorage.put(id, x);
+
+
+            String body = "This is your link for registration:\n http://localhost:1314/education/api/email/"+urlGenerator(email);
+
+            Email emailSend = new Email();
+            emailSend.setFrom("anzip96@gmail.com");
+            emailSend.setTo(email);
+            emailSend.setSubject("Registration Finish");
+            emailSend.setBody(body);
+
+
+            emailSenderBeanGetter.get().send(emailSend);
+            emailSenderControllerBeanGetter.get().sendAllExistingEmails();
+            return "Ok, saved and sent email";
+        } else {
+            ClientDot x = db.get().clientStorage.get(id);
+            x.setName(name);
+            x.setSurname(surname);
+            x.setEmail(email);
+            x.setBirthDate(birthDate);
+            x.setTelephone(telephone);
+            x.setAddress(address);
+            x.setPassword(password);
+
+            db.get().clientStorage.put(id,x);
+            return "Ok, updated";
         }
+
+
+    }
+    private String urlGenerator(String email){
+        long lowerLimit = 100000000L;
+        long upperLimit = 999999999L;
+        Random r = new Random();
+        long number = lowerLimit+((long)(r.nextDouble()*(upperLimit-lowerLimit)));
+        db.get().linkStorage.put(number, email);
+        String strLong = Long.toString(number);
+        return strLong;
+    }
+
+    @Override
+    public String acceptUser(String genNumber){
+        String username = db.get().linkStorage.get(Long.valueOf(genNumber));
+        for (String id : db.get().clientStorage.keySet()) {
+            ClientDot cl = db.get().clientStorage.get(id);
+            if(cl.email.equals(username)){
+                cl.setAccepted("1");
+            }
+        }
+        return username;
     }
 }

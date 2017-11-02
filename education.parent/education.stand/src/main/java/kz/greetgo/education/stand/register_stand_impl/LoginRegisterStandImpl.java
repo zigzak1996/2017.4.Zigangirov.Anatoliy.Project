@@ -19,7 +19,7 @@ public class LoginRegisterStandImpl implements LoginRegister{
         String password = obj.getString("password");
 
         for (ClientDot clientDot : db.get().clientStorage.values()){
-            if (email.equals(clientDot.getEmail()) && password.equals(clientDot.getPassword())){
+            if (email.equals(clientDot.getEmail()) && password.equals(clientDot.getPassword()) && clientDot.accepted.equals("1")){
                 LoginInfo loginInfo = new LoginInfo(clientDot.getId(),clientDot.getType_id());
                 return loginInfo;
             }

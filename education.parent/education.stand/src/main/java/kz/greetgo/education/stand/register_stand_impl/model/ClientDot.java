@@ -10,6 +10,7 @@ public class ClientDot {
     public String address;
     public String password;
     public String type_id;
+    public String accepted;
     public ClientDot(String id,String name,String surname,String birthDate,String telephone,String email,String address,String type_id,String password){
         this.id = id;
         this.birthDate = birthDate;
@@ -20,6 +21,15 @@ public class ClientDot {
         this.address = address;
         this.type_id = type_id;
         this.password = password;
+        this.accepted = "0";
+    }
+
+    public String getAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(String accepted) {
+        this.accepted = accepted;
     }
 
     public String getId() {
