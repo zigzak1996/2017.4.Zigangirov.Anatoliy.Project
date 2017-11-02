@@ -70,7 +70,7 @@ public class ClientRegisterStandImpl implements ClientRegister {
             db.get().clientStorage.put(id, x);
 
 
-            String body = "This is your link for registration:\n http://localhost:1314/education/api/email/"+urlGenerator(email);
+            String body = "This is your link for activated account:\n http://localhost:1314/education/api/email/"+urlGenerator(email);
 
             Email emailSend = new Email();
             emailSend.setFrom("anzip96@gmail.com");
@@ -99,24 +99,21 @@ public class ClientRegisterStandImpl implements ClientRegister {
 
     }
     private String urlGenerator(String email){
-        long lowerLimit = 100000000L;
-        long upperLimit = 999999999L;
         Random r = new Random();
-        long number = lowerLimit+((long)(r.nextDouble()*(upperLimit-lowerLimit)));
+        long number = r.nextLong();
         db.get().linkStorage.put(number, email);
         String strLong = Long.toString(number);
         return strLong;
     }
 
     @Override
-    public String acceptUser(String genNumber){
-        String username = db.get().linkStorage.get(Long.valueOf(genNumber));
-        for (String id : db.get().clientStorage.keySet()) {
-            ClientDot cl = db.get().clientStorage.get(id);
-            if(cl.email.equals(username)){
+    public String acceptUser(String number){
+        String email = db.get().linkStorage.get(Long.valueOf(number));
+        for (ClientDot cl : db.get().clientStorage.values()) {
+            if(cl.email.equals(email)){
                 cl.setAccepted("1");
             }
         }
-        return username;
+        return email;
     }
 }
