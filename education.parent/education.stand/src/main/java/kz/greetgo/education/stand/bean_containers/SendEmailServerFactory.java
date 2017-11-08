@@ -1,7 +1,9 @@
-package kz.greetgo.education.stand.beans;
+package kz.greetgo.education.stand.bean_containers;
 
 import com.sun.mail.smtp.SMTPTransport;
+import kz.greetgo.depinject.Depinject;
 import kz.greetgo.depinject.core.Bean;
+import kz.greetgo.education.stand.register_stand_impl.MyConfig;
 import kz.greetgo.education.stand.util.CommonConstant;
 import kz.greetgo.email.Email;
 import kz.greetgo.email.EmailSaver;
@@ -19,6 +21,12 @@ import java.util.Properties;
 
 @Bean
 public class SendEmailServerFactory {
+
+    StandBeanContainer container = Depinject.newInstance(StandBeanContainer.class);
+
+    MyConfig myConfig = container.myConfig();
+
+
 
     @Bean
     public EmailSender createEmailSenderSaver(){
@@ -40,16 +48,17 @@ public class SendEmailServerFactory {
             public void send(Email email) {
                 try{
                     CommonConstant cm = new CommonConstant();
+
                     Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
 
                     final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 
                     Properties props = System.getProperties();
-                    props.setProperty("mail.smtps.host", "smtp.gmail.com");
+                    props.setProperty("mail.smtps.host", myConfig.smtpHost());
                     props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
                     props.setProperty("mail.smtp.socketFactory.fallback", "false");
-                    props.setProperty("mail.smtp.port", "465");
-                    props.setProperty("mail.smtp.socketFactory.port", "465");
+                    props.setProperty("mail.smtp.port", myConfig.smtpPort());
+                    props.setProperty("mail.smtp.socketFactory.port", myConfig.smtpPort());
                     props.setProperty("mail.smtps.auth", "true");
 
                     props.put("mail.smtps.quitwait", "false");
@@ -68,7 +77,7 @@ public class SendEmailServerFactory {
 
                     SMTPTransport t = (SMTPTransport) session.getTransport("smtp");
 
-                    t.connect("smtp.gmail.com", cm.username, cm.password);
+                    t.connect(myConfig.smtpHost(), myConfig.loginAccount(), myConfig.accountPassword());
                     t.sendMessage(msg, msg.getAllRecipients());
 
                     t.close();
@@ -84,5 +93,4 @@ public class SendEmailServerFactory {
     public void generateAndSendFunction(){
 
     }
-
 }

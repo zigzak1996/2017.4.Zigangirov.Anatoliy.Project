@@ -20,8 +20,6 @@ public class ClientRegisterStandImpl implements ClientRegister {
 
     public BeanGetter<EmailSender> emailSenderBeanGetter;
 
-    public BeanGetter<EmailSenderController> emailSenderControllerBeanGetter;
-
     @Override
     public List<ClientInfo> getClientList() {
         List<ClientInfo> clientInfo = new ArrayList<ClientInfo>();
@@ -80,7 +78,8 @@ public class ClientRegisterStandImpl implements ClientRegister {
 
 
             emailSenderBeanGetter.get().send(emailSend);
-            emailSenderControllerBeanGetter.get().sendAllExistingEmails();
+
+
             return "Ok, saved and sent email";
         } else {
             ClientDot x = db.get().clientStorage.get(id);
@@ -101,6 +100,7 @@ public class ClientRegisterStandImpl implements ClientRegister {
     private String urlGenerator(String email){
         Random r = new Random();
         long number = r.nextLong();
+        if(number<0)number*=-1;
         db.get().linkStorage.put(number, email);
         String strLong = Long.toString(number);
         return strLong;
@@ -115,5 +115,6 @@ public class ClientRegisterStandImpl implements ClientRegister {
             }
         }
         return email;
+
     }
 }

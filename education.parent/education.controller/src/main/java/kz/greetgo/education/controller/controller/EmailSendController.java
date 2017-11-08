@@ -12,11 +12,10 @@ import kz.greetgo.mvc.annotations.ParPath;
 public class EmailSendController implements Controller {
     public BeanGetter<ClientRegister> userRegisterBeanGetter;
 
-    @Mapping("/asd{generatedNumber}")
+    @Mapping("/{generatedNumber}")
     public void sentEmail(@ParPath("generatedNumber") String num){
         System.out.println(num);
         String username = userRegisterBeanGetter.get().acceptUser(num);
         System.out.println(username);
     }
 }
-dgffghjh/asd?id=123
