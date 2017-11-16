@@ -3,10 +3,9 @@ package kz.greetgo.education.stand.launcher;
 import kz.greetgo.depinject.Depinject;
 import kz.greetgo.depinject.gen.DepinjectUtil;
 import kz.greetgo.education.stand.bean_containers.StandBeanContainer;
-import kz.greetgo.education.stand.register_stand_impl.MainScheduler;
-import kz.greetgo.education.stand.register_stand_impl.MyConfig;
+import kz.greetgo.education.stand.register_stand_impl.sheduling.MainScheduler;
+import kz.greetgo.education.stand.register_stand_impl.sheduling.MyConfig;
 import kz.greetgo.education.stand.util.Modules;
-import kz.greetgo.scheduling.Scheduled;
 
 public class LaunchStandServer {
   public static void main(String[] args) throws Exception {

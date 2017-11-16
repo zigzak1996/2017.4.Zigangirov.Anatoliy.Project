@@ -9,6 +9,6 @@ dependencies {
 
   compile "kz.greetgo:greetgo.conf:$greetgoConfVersion"
   compile "kz.greetgo:greetgo.email:$greetGoEmailVersion"
-
+  compile "postgresql:postgresql:$postgreSqlVersion"
   compile "com.google.guava:guava:$guavaVersion"
 }

@@ -3,7 +3,7 @@ package kz.greetgo.education.stand.bean_containers;
 import com.sun.mail.smtp.SMTPTransport;
 import kz.greetgo.depinject.Depinject;
 import kz.greetgo.depinject.core.Bean;
-import kz.greetgo.education.stand.register_stand_impl.MyConfig;
+import kz.greetgo.education.stand.register_stand_impl.sheduling.MyConfig;
 import kz.greetgo.education.stand.util.CommonConstant;
 import kz.greetgo.email.Email;
 import kz.greetgo.email.EmailSaver;
@@ -93,4 +93,5 @@ public class SendEmailServerFactory {
     public void generateAndSendFunction(){
 
     }
+
 }
